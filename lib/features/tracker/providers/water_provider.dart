@@ -10,14 +10,16 @@ class WaterProvider with ChangeNotifier {
   double get dailyGoal => _dailyGoal;
   List<WaterLog> get logs => _logs;
 
-  double get currentIntake {
+  List<WaterLog> get todaysLogs {
     final now = DateTime.now();
-    return _logs
-        .where((log) =>
-            log.timestamp.year == now.year &&
-            log.timestamp.month == now.month &&
-            log.timestamp.day == now.day)
-        .fold(0, (sum, log) => sum + log.amount);
+    return _logs.where((log) =>
+        log.timestamp.year == now.year &&
+        log.timestamp.month == now.month &&
+        log.timestamp.day == now.day).toList();
+  }
+
+  double get currentIntake {
+    return todaysLogs.fold(0, (sum, log) => sum + log.amount);
   }
 
   int get glassCount => (currentIntake / 250).ceil();

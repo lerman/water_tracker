@@ -14,7 +14,7 @@ class HistoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<WaterProvider>(
       builder: (context, provider, child) {
-        final logs = provider.logs.reversed.toList(); // Newest first
+        final logs = provider.todaysLogs.reversed.toList(); // Newest first
 
         if (logs.isEmpty) {
           return Center(

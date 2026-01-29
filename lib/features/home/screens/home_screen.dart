@@ -254,4 +254,67 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _showSettingsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: GlassContainer(
+          borderRadius: 24,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Daily Goal",
+                style: GoogleFonts.outfit(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Consumer<WaterProvider>(
+                builder: (context, provider, _) {
+                  return Column(
+                    children: [
+                      Text(
+                        "${provider.dailyGoal.toInt()} ml",
+                        style: GoogleFonts.outfit(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.accentBlue,
+                        ),
+                      ),
+                      Slider(
+                        value: provider.dailyGoal,
+                        min: 1000,
+                        max: 5000,
+                        divisions: 40, // 100ml increments
+                        activeColor: AppColors.accentBlue,
+                        onChanged: (value) {
+                          provider.setGoal(value);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  "Done",
+                  style: GoogleFonts.outfit(
+                    fontSize: 16,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
