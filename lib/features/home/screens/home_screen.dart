@@ -52,6 +52,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                       const Spacer(),
                       IconButton(
+                        icon: const Icon(Icons.settings_outlined, color: AppColors.textPrimary),
+                        onPressed: () => _showSettingsDialog(context),
+                      ),
+                      IconButton(
                         icon: const Icon(Icons.refresh, color: AppColors.textPrimary),
                         onPressed: () => context.read<WaterProvider>().resetToday(),
                       ),
