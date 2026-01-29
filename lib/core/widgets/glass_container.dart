@@ -12,6 +12,8 @@ class GlassContainer extends StatelessWidget {
   final double blur;
   final double borderOpacity;
 
+  final BoxShape shape;
+
   const GlassContainer({
     super.key,
     this.width,
@@ -22,6 +24,7 @@ class GlassContainer extends StatelessWidget {
     this.borderRadius = 20,
     this.blur = 15,
     this.borderOpacity = 0.2,
+    this.shape = BoxShape.rectangle,
   });
 
   @override
@@ -31,7 +34,8 @@ class GlassContainer extends StatelessWidget {
       height: height,
       margin: margin,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius),
+        shape: shape,
+        borderRadius: shape == BoxShape.circle ? null : BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -42,14 +46,15 @@ class GlassContainer extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: shape == BoxShape.circle ? BorderRadius.circular(1000) : BorderRadius.circular(borderRadius),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
           child: Container(
             padding: padding,
             decoration: BoxDecoration(
+              shape: shape,
               color: Colors.white.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(borderRadius),
+              borderRadius: shape == BoxShape.circle ? null : BorderRadius.circular(borderRadius),
               border: Border.all(
                 color: Colors.white.withOpacity(borderOpacity),
                 width: 1.5,

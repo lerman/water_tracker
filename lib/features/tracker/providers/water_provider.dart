@@ -20,6 +20,8 @@ class WaterProvider with ChangeNotifier {
         .fold(0, (sum, log) => sum + log.amount);
   }
 
+  int get glassCount => (currentIntake / 250).ceil();
+
   double get progress => (currentIntake / _dailyGoal).clamp(0.0, 1.0);
 
   WaterProvider() {
